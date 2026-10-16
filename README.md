@@ -11,8 +11,12 @@ revenue growth over three years" and cite the filings each number came from.
 correct, appeared in that question's own tool outputs, and came from the expected tools. All 10 answers cited
 a tool-returned SEC URL. The run cost $0.17 in total (2026-10-16).
 
-<!-- TODO: add a screenshot of Claude Desktop answering a question with this server at docs/claude-desktop-demo.png -->
-![Claude Desktop using sec-edgar-mcp](docs/claude-desktop-demo.png)
+![Claude Desktop answering "Compare Nvidia and AMD revenue growth from FY2022 to FY2024" with sec-edgar-mcp](docs/claude-desktop-demo.png)
+
+Claude Desktop (Opus 5.5) with this server: the growth figures match the golden set (NVDA +126.4%,
+AMD +9.3%), each figure links to its 10-K, and Claude notes on its own that the two fiscal years are about
+11 months apart. Every tool call asks for approval first
+([screenshot](docs/claude-desktop-tool-call.png)).
 
 Four read-only tools, every result carries a `source_url`, polite to SEC by construction (User-Agent,
 8 req/s limiter, Retry-After, disk cache). Built on the official MCP Python SDK v2 (`MCPServer`, formerly
