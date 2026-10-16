@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sec-edgar-mcp"
+version = "0.1.0"
+description = "MCP server exposing SEC EDGAR filings and XBRL financial facts as typed tools"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Afnan Waseem", email = "mwaseem@uchicago.edu" }]
+license = { text = "MIT" }
+dependencies = [
+    "mcp>=2.3,<3",
+    "httpx>=0.27",
+    "pydantic>=2.7",
+    "beautifulsoup4>=4.12",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "respx>=0.21", "ruff>=0.6"]
+evals = ["anthropic>=1.14,<2"]
+
+[project.scripts]
+sec-edgar-mcp = "sec_edgar_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sec_edgar_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
